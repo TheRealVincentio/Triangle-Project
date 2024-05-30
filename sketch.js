@@ -6,6 +6,8 @@ let root
 let octs = 2
 let FADE = 255
 hn = 0
+let viz = true
+let vol = 0.1
 
 
 function setup() {
@@ -37,7 +39,7 @@ function setup() {
 
 function draw() {
   background(0, 22.5);
-  wave(fft)
+  if(viz){wave(fft)}
   for (const triangle of triangles) {
     triangle.draw()
   }
@@ -74,4 +76,19 @@ function wave(){
     rect(x, height, width / spectrum.length, h )
   }
   pop()
+}
+
+function keyReleased(){
+  if(keyCode === 32){
+    viz = !viz
+  }
+  if(keyCode === 37){
+    vol-=0.01
+  }
+  if(keyCode === 39){
+    vol+=0.01
+  }
+  vol = constrain(vol,0,0.2)
+    outputVolume(vol)
+  return false
 }
